@@ -1,0 +1,71 @@
+from fastapi import FastAPI
+from model_pydantic import Product
+
+app = FastAPI()
+
+Products=[
+    Product(
+            Id=1,
+            Brand="Apple",
+            Model="Iphone 17",
+            Category="Electronics",
+            Sub_Category="Smartphones",
+            Price=83000
+            )   
+]
+
+
+
+@app.get("/")
+def greet():
+    return "Hello Server Up"
+
+@app.get("/Products")
+def get_Products():
+    return Products
+
+@app.get("/Products/{id}")
+def get_Products_id(id:int):
+    for product in Products:
+        if product.Id == id:
+            return product
+    return {"Product With Id {id} Not Found"}
+
+@app.post("/Products")
+def add_Products(new_product:Product):
+    for product in Products:
+        if product.Id == new_product.Id:
+            return {"Product With Id {new_product.Id} Already Exists"}
+    
+    Products.append(new_product)
+    return {"message":"Product Added Successfully","product":new_product}
+
+
+@app.put("/Products")
+def update_Products(update_product:Product):
+    for i in range(len(Products)):
+        if Products[i].Id == update_product.Id:
+            Products[i] =update_product
+            return {"message":f"Product With {update_product.Id} Updated Successfully"}
+         
+    return {"message":f"Product Not Found With {update_product.Id}"}
+
+@app.delete("/Products")
+def update_Products(id:int):
+    for i in range(len(Products)):
+        if Products[i].Id == id:
+            del Products[i]
+            return {"message":f"Product With {id} Deleted Successfully"}
+         
+    return {"message":f"Product Not Found With {id}"}
+
+
+
+
+
+
+    
+
+
+
+

@@ -1,0 +1,18 @@
+from pydantic import BaseModel
+class Product(BaseModel):
+    Id:int
+    Brand:str
+    Model:str
+    Category:str
+    Sub_Category:str
+    Price:int
+
+from pydantic import BaseModel,Field
+class Product(BaseModel):
+    Id:int =Field(gt=0)
+    Brand:str =Field(min_length=2,max_length=10)
+    Model:str 
+    Category:str =Field(default="General")
+    Sub_Category:str
+    Price:int =Field
+

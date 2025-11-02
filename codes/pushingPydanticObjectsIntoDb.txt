@@ -1,0 +1,12 @@
+def init_db():
+    db=session()
+
+    count = db.query(model_sqlalchemy.Product).count
+    if count ==0 :
+        for product in Products:
+            db.add(model_sqlalchemy.Product(**product.model_dump()))
+    
+        db.commit()
+        db.close()
+    
+init_db()
