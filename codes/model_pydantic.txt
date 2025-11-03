@@ -16,3 +16,9 @@ class Product(BaseModel):
     Sub_Category:str
     Price:int =Field
 
+from fastapi import Security, Depend
+from fastapi.security import APIKeyHeader
+security = APIKeyHeader(name="Authorization")
+@app.get("/secure-data")
+def secure_data(token: str = Security(security)):
+ return {"message": "Access granted", "token": token}

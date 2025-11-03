@@ -1,10 +1,20 @@
 from fastapi import FastAPI,Depends,Security,HTTPException
 from fastapi.security.api_key import APIKeyHeader
+from fastapi.middleware.cors import CORSMiddleware
 from model_pydantic import Product
 from databaseconfig import engine,session
 import model_sqlalchemy
 from sqlalchemy.orm import Session
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+
+)
 
 model_sqlalchemy.Base.metadata.create_all(bind=engine)
 

@@ -3,7 +3,7 @@ from sqlalchemy import Column,Integer,String
 Base =declarative_base()
 class Product(Base):
 
-    __tablename__ ="product"
+    __tablename__ ="copy_product"
 
     Id =Column(Integer,primary_key=True,index=True)
     Brand =Column(String)

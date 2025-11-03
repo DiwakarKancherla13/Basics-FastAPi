@@ -1,0 +1,3 @@
+import bcrypt
+hashed_model = bcrypt.hashpw(product.model.encode('utf-8'), bcrypt.gensalt())
+product.model = hashed_password.decode('utf-8')
